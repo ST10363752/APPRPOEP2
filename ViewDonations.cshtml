@@ -1,0 +1,122 @@
+﻿@model List<APPR6312PART2.Models.Donation>
+@{
+    ViewData["Title"] = "All Donations";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-success">❤️ All Donations</h1>
+                <div>
+                    <a href="@Url.Action("Donate", "Donation")" class="btn btn-warning btn-lg me-2">
+                        ➕ Make Donation
+                    </a>
+                    <a href="@Url.Action("Impact", "Donation")" class="btn btn-outline-success btn-lg">
+                        📊 View Impact
+                    </a>
+                </div>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info text-center">
+                    <h4>No donations received yet</h4>
+                    <p>Be the first to make a donation and help communities in need.</p>
+                    <a href="@Url.Action("Donate", "Donation")" class="btn btn-success">Make First Donation</a>
+                </div>
+            }
+            else
+            {
+                <div class="card shadow border-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">Donation Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <h4 class="text-success">@Model.Count</h4>
+                                <p class="text-muted">Total Donations</p>
+                            </div>
+                            <div class="col-md-3">
+                                @{
+                                    var totalMonetary = Model.Where(d => d.MonetaryAmount.HasValue).Sum(d => d.MonetaryAmount.Value);
+                                }
+                                <h4 class="text-warning">$@totalMonetary.ToString("N2")</h4>
+                                <p class="text-muted">Total Monetary</p>
+                            </div>
+                            <div class="col-md-3">
+                                @{
+                                    var totalItems = Model.Where(d => d.Quantity.HasValue).Sum(d => d.Quantity.Value);
+                                }
+                                <h4 class="text-success">@totalItems.ToString("N0")</h4>
+                                <p class="text-muted">Total Items</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="text-warning">@Model.Count(d => d.IsUrgent)</h4>
+                                <p class="text-muted">Urgent Donations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive mt-4">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-success">
+                            <tr>
+                                <th>Donor</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Amount/Quantity</th>
+                                <th>Allocation</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var donation in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@donation.DonorName</strong>
+                                        <br>
+                                        <small class="text-muted">@donation.Email</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info">@donation.DonationType</span>
+                                        @if (donation.IsUrgent)
+                                        {
+                                            <span class="badge bg-danger">Urgent</span>
+                                        }
+                                    </td>
+                                    <td>@donation.ItemDescription</td>
+                                    <td>
+                                        @if (donation.MonetaryAmount.HasValue)
+                                        {
+                                            <span class="text-success fw-bold">$@donation.MonetaryAmount.Value.ToString("N2")</span>
+                                        }
+                                        else if (donation.Quantity.HasValue)
+                                        {
+                                            <span class="text-warning fw-bold">@donation.Quantity.Value.ToString("N0") items</span>
+                                        }
+                                    </td>
+                                    <td>@donation.AllocationPreference</td>
+                                    <td>@donation.DonationDate.ToString("MMM dd, yyyy")</td>
+                                    <td>
+                                        <span class="badge bg-@(donation.Status == "Completed" ? "success" : donation.Status == "Processing" ? "warning" : "secondary")">
+                                            @donation.Status
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Donation", new { id = donation.DonationId })" class="btn btn-outline-success btn-sm">View</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

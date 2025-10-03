@@ -1,0 +1,279 @@
+﻿@model APPR6312PART2.Models.Donation
+@{
+    ViewData["Title"] = "Make a Donation";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow border-success">
+                <div class="card-header bg-success text-white text-center py-3">
+                    <h2 class="mb-0">❤️ Make a Donation</h2>
+                    <p class="mb-0">Your generosity helps communities in need during disasters</p>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Donate" method="post">
+                        <!-- Donor Information -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-success mb-3">👤 Donor Information</h4>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="DonorName" class="form-label fw-bold text-success">Full Name *</label>
+                                <input asp-for="DonorName" class="form-control" placeholder="Enter your full name" required>
+                                <span asp-validation-for="DonorName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Email" class="form-label fw-bold text-success">Email Address *</label>
+                                <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" required>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="PhoneNumber" class="form-label fw-bold text-success">Phone Number *</label>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="Enter your phone number" required>
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Donation Type -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-success mb-3">🎁 Donation Type</h4>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="DonationType" class="form-label fw-bold text-success">What would you like to donate? *</label>
+                                <select asp-for="DonationType" class="form-select" id="donationType" required>
+                                    <option value="">Select Donation Type</option>
+                                    <option value="Monetary">Monetary Donation (ZAR)</option>
+                                    <option value="Food">Food Supplies</option>
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Medical">Medical Supplies</option>
+                                    <option value="Shelter">Shelter Materials</option>
+                                    <option value="Other">Other Items</option>
+                                </select>
+                                <span asp-validation-for="DonationType" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Fields based on Donation Type -->
+                        <div id="monetaryFields" class="donation-fields" style="display: none;">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label asp-for="MonetaryAmount" class="form-label fw-bold text-success">Amount (ZAR) *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-success text-white">R</span>
+                                        <input asp-for="MonetaryAmount" type="number" step="0.01" class="form-control" placeholder="Enter amount in South African Rands">
+                                    </div>
+                                    <span asp-validation-for="MonetaryAmount" class="text-danger"></span>
+                                    <div class="form-text">
+                                        <small class="text-muted">
+                                            💡 <strong>Suggested amounts:</strong>
+                                            R500 (Feeds a family for a week) |
+                                            R1,000 (Emergency shelter kit) |
+                                            R2,500 (Medical supplies for 10 people)
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card border-warning">
+                                        <div class="card-body">
+                                            <h6 class="text-warning">💰 Impact of Your Donation</h6>
+                                            <div id="impactMessage" class="text-muted small">
+                                                Select an amount to see your impact
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="itemFields" class="donation-fields" style="display: none;">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label asp-for="ItemDescription" class="form-label fw-bold text-success">Item Description *</label>
+                                    <input asp-for="ItemDescription" class="form-control" placeholder="Describe the items you're donating">
+                                    <span asp-validation-for="ItemDescription" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="Quantity" class="form-label fw-bold text-success">Quantity *</label>
+                                    <input asp-for="Quantity" type="number" class="form-control" placeholder="Number of items">
+                                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Allocation Preference -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-success mb-3">🎯 Allocation Preference</h4>
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <label asp-for="AllocationPreference" class="form-label fw-bold text-success">Where should we allocate your donation? *</label>
+                                <select asp-for="AllocationPreference" class="form-select" required>
+                                    <option value="">Select Allocation Preference</option>
+                                    <option value="Most Urgent Need">Wherever it's needed most urgently</option>
+                                    <option value="Recent Disasters">Recent disaster areas in South Africa</option>
+                                    <option value="Medical Relief">Medical and healthcare support</option>
+                                    <option value="Food Security">Food and nutrition programs</option>
+                                    <option value="Shelter Support">Shelter and housing assistance</option>
+                                    <option value="Children and Families">Children and family support</option>
+                                    <option value="Rural Communities">Rural community support</option>
+                                    <option value="Flood Relief">Flood relief efforts</option>
+                                </select>
+                                <span asp-validation-for="AllocationPreference" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Delivery Information -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 class="text-success mb-3">🚚 Delivery Information</h4>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-check">
+                                    <input asp-for="IsUrgent" class="form-check-input" type="checkbox">
+                                    <label asp-for="IsUrgent" class="form-check-label fw-bold text-success">
+                                        This donation requires urgent delivery
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="PreferredDate" class="form-label fw-bold text-success">Preferred Delivery/Pickup Date</label>
+                                <input asp-for="PreferredDate" type="date" class="form-control">
+                                <span asp-validation-for="PreferredDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Payment Information (for monetary donations) -->
+                        <div id="paymentInfo" class="donation-fields" style="display: none;">
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h4 class="text-success mb-3">💳 Payment Information</h4>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-success">Preferred Payment Method *</label>
+                                    <select class="form-select" id="paymentMethod">
+                                        <option value="">Select Payment Method</option>
+                                        <option value="EFT">Electronic Funds Transfer (EFT)</option>
+                                        <option value="CreditCard">Credit Card</option>
+                                        <option value="DebitCard">Debit Card</option>
+                                        <option value="SnapScan">SnapScan</option>
+                                        <option value="PayPal">PayPal</option>
+                                        <option value="BankTransfer">Bank Transfer</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card border-info">
+                                        <div class="card-body text-center">
+                                            <h6 class="text-info">🏦 Bank Details</h6>
+                                            <p class="mb-1 small"><strong>Bank:</strong> Standard Bank</p>
+                                            <p class="mb-1 small"><strong>Account:</strong> 123 456 789</p>
+                                            <p class="mb-1 small"><strong>Branch:</strong> 12345</p>
+                                            <p class="mb-0 small"><strong>Reference:</strong> Your Name</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Notes -->
+                        <div class="mb-4">
+                            <label asp-for="AdditionalNotes" class="form-label fw-bold text-success">Additional Notes</label>
+                            <textarea asp-for="AdditionalNotes" class="form-control" rows="3" placeholder="Any special instructions or additional information..."></textarea>
+                            <span asp-validation-for="AdditionalNotes" class="text-danger"></span>
+                        </div>
+
+                        <!-- Tax Deduction Information -->
+                        <div id="taxInfo" class="alert alert-warning donation-fields" style="display: none;">
+                            <h6 class="alert-heading">💰 Tax Benefit Information</h6>
+                            <p class="mb-0">
+                                <strong>Section 18A Tax Certificate:</strong> As a registered Public Benefit Organisation (PBO),
+                                we can issue Section 18A tax certificates for monetary donations. This allows you to deduct
+                                your donation from your taxable income. A certificate will be emailed to you upon receipt of payment.
+                            </p>
+                        </div>
+
+                        <!-- Information Alert -->
+                        <div class="alert alert-info">
+                            <h6 class="alert-heading">ℹ️ Important Information</h6>
+                            <p class="mb-0">
+                                After submitting this form, our team will contact you within 24 hours to coordinate the donation process.
+                                For monetary donations, we will provide secure payment instructions and Section 18A tax certificates.
+                            </p>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary me-md-2">Cancel</a>
+                            <button type="submit" class="btn btn-success btn-lg">Submit Donation</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const donationType = document.getElementById('donationType');
+        const monetaryFields = document.getElementById('monetaryFields');
+        const itemFields = document.getElementById('itemFields');
+        const paymentInfo = document.getElementById('paymentInfo');
+        const taxInfo = document.getElementById('taxInfo');
+        const monetaryAmount = document.querySelector('input[asp-for="MonetaryAmount"]');
+        const impactMessage = document.getElementById('impactMessage');
+
+        function toggleFields() {
+            // Hide all fields first
+            monetaryFields.style.display = 'none';
+            itemFields.style.display = 'none';
+            paymentInfo.style.display = 'none';
+            taxInfo.style.display = 'none';
+
+            // Show relevant fields based on selection
+            if (donationType.value === 'Monetary') {
+                monetaryFields.style.display = 'block';
+                paymentInfo.style.display = 'block';
+                taxInfo.style.display = 'block';
+            } else if (donationType.value !== '' && donationType.value !== 'Monetary') {
+                itemFields.style.display = 'block';
+            }
+        }
+
+        function updateImpactMessage(amount) {
+            let message = '';
+            if (amount >= 50000) {
+                message = '🌟 <strong>Extraordinary Impact!</strong> Your donation could fund an entire emergency response team for a week, helping hundreds of families.';
+            } else if (amount >= 10000) {
+                message = '🎯 <strong>Major Impact!</strong> This could provide emergency shelter and food for 20+ families affected by disasters.';
+            } else if (amount >= 5000) {
+                message = '💪 <strong>Significant Impact!</strong> Your donation could supply medical kits and food parcels for 10 families.';
+            } else if (amount >= 1000) {
+                message = '👍 <strong>Great Impact!</strong> This amount can provide emergency shelter kits or feed a family for a month.';
+            } else if (amount >= 500) {
+                message = '🙏 <strong>Meaningful Impact!</strong> Your donation can provide food and essentials for a family for two weeks.';
+            } else if (amount >= 100) {
+                message = '❤️ <strong>Valuable Impact!</strong> This can provide emergency blankets and hygiene kits for 2 people.';
+            } else if (amount > 0) {
+                message = '✨ <strong>Every bit helps!</strong> Your contribution will be combined with others to make a big difference.';
+            } else {
+                message = 'Select an amount to see your impact';
+            }
+            impactMessage.innerHTML = message;
+        }
+
+        if (donationType) {
+            donationType.addEventListener('change', toggleFields);
+            toggleFields(); // Initialize on page load
+        }
+
+        if (monetaryAmount) {
+            monetaryAmount.addEventListener('input', function() {
+                updateImpactMessage(parseFloat(this.value) || 0);
+            });
+        }
+
+        // Initialize impact message
+        updateImpactMessage(0);
+    });
+</script>

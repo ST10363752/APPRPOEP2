@@ -1,0 +1,178 @@
+﻿@model APPR6312PART2.Models.AboutViewModel
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center mb-5">
+                <h1 class="text-success">🌍 About Disaster Alleviation Foundation</h1>
+                <p class="lead text-muted">Saving lives and rebuilding communities since 2010</p>
+            </div>
+
+            <!-- Mission & Vision -->
+            <div class="row mb-5">
+                <div class="col-md-6 mb-4">
+                    <div class="card border-success h-100">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0">🎯 Our Mission</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">@Model.Mission</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card border-warning h-100">
+                        <div class="card-header bg-warning text-dark">
+                            <h4 class="mb-0">👁️ Our Vision</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">@Model.Vision</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History -->
+            <div class="card border-success mb-5">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">📜 Our History</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Model.History</p>
+                    <div class="row mt-4 text-center">
+                        <div class="col-md-3 mb-3">
+                            <div class="text-success display-6">13+</div>
+                            <div class="text-muted">Years of Service</div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="text-warning display-6">50+</div>
+                            <div class="text-muted">Countries Reached</div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="text-success display-6">5K+</div>
+                            <div class="text-muted">Volunteers</div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="text-warning display-6">2M+</div>
+                            <div class="text-muted">Lives Impacted</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Members -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="text-success text-center mb-4">👥 Our Leadership Team</h2>
+                </div>
+                @if (Model.TeamMembers != null && Model.TeamMembers.Any())
+                {
+                    @foreach (var member in Model.TeamMembers)
+                    {
+                        <div class="col-md-6 col-lg-3 mb-4">
+                            <div class="card border-warning h-100 text-center">
+                                <div class="card-body">
+                                    <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                                         style="width: 80px; height: 80px;">
+                                        <span class="text-warning fw-bold fs-4">@member.Name[0]</span>
+                                    </div>
+                                    <h5 class="card-title text-success">@member.Name</h5>
+                                    <h6 class="card-subtitle mb-2 text-warning">@member.Position</h6>
+                                    <p class="card-text text-muted">@member.Description</p>
+                                    <small class="text-success">@member.Email</small>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12 text-center">
+                        <div class="alert alert-info">
+                            <p>Team information is currently being updated. Please check back soon.</p>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Achievements -->
+            <div class="card border-success mb-5">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">🏆 Achievements & Recognition</h4>
+                </div>
+                <div class="card-body">
+                    @if (Model.Achievements != null && Model.Achievements.Any())
+                    {
+                        <div class="row">
+                            @foreach (var achievement in Model.Achievements)
+                            {
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <span class="badge bg-warning text-dark fs-6 me-3">@achievement.Year</span>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="text-success mb-1">@achievement.Title</h6>
+                                            <p class="text-muted mb-0">@achievement.Description</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted">
+                            <p>Achievement information is currently being updated.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Values -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="text-success text-center mb-4">💫 Our Values</h2>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card border-success text-center h-100">
+                        <div class="card-body">
+                            <div class="text-success display-6">⚡</div>
+                            <h5 class="text-success">Rapid Response</h5>
+                            <p class="text-muted">We act quickly and decisively when disasters strike, ensuring help reaches those in need within critical timeframes.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card border-warning text-center h-100">
+                        <div class="card-body">
+                            <div class="text-warning display-6">🤝</div>
+                            <h5 class="text-warning">Community Focus</h5>
+                            <p class="text-muted">We work with local communities to ensure our efforts are culturally appropriate and sustainable.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card border-success text-center h-100">
+                        <div class="card-body">
+                            <div class="text-success display-6">🔒</div>
+                            <h5 class="text-success">Transparency</h5>
+                            <p class="text-muted">We maintain open communication about our operations, finances, and impact to build trust with our supporters.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mt-5 p-5 bg-light rounded">
+                <h3 class="text-success mb-3">Join Our Mission</h3>
+                <p class="text-muted mb-4">Be part of our journey to make the world more resilient to disasters.</p>
+                <a href="@Url.Action("Register", "Auth")" class="btn btn-success btn-lg me-3">Join Our Team</a>
+                <a href="@Url.Action("Donate", "Donation")" class="btn btn-warning btn-lg">Support Our Work</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "System Settings";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-success">⚙️ System Settings</h1>
+                <div>
+                    <a href="@Url.Action("Index", "Dashboard")" class="btn btn-outline-secondary me-2">📊 Dashboard</a>
+                    <a href="@Url.Action("Analytics", "Dashboard")" class="btn btn-outline-warning">📈 Analytics</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- General Settings -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card border-success">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="card-title mb-0">🔧 General Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-success">System Name</label>
+                                <input type="text" class="form-control" value="Disaster Alleviation Foundation" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-success">Contact Email</label>
+                                <input type="email" class="form-control" value="admin@disasteralleviation.org" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-success">Emergency Hotline</label>
+                                <input type="text" class="form-control" value="1-800-DISASTER" readonly>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <label class="form-check-label text-success">Enable email notifications</label>
+                            </div>
+                            <button class="btn btn-outline-success">Save General Settings</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Settings -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card border-warning">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="card-title mb-0">🔒 Security Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-success">Session Timeout</label>
+                                <select class="form-select">
+                                    <option selected>30 minutes</option>
+                                    <option>1 hour</option>
+                                    <option>2 hours</option>
+                                    <option>4 hours</option>
+                                </select>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <label class="form-check-label text-success">Require strong passwords</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox">
+                                <label class="form-check-label text-success">Enable two-factor authentication</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <label class="form-check-label text-success">Log user activities</label>
+                            </div>
+                            <button class="btn btn-outline-warning">Update Security</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification Settings -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card border-info">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="card-title mb-0">🔔 Notification Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label text-success">New disaster alerts</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label text-success">Donation notifications</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label text-success">Volunteer updates</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label text-success">System maintenance</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label text-success">Monthly reports</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label text-success">Emergency alerts</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-info">Save Notification Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Information -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card border-secondary">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="card-title mb-0">ℹ️ System Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <strong class="text-success">Version:</strong> 1.0.0
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <strong class="text-success">Last Updated:</strong> @DateTime.Now.ToString("MMM dd, yyyy")
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <strong class="text-success">Database:</strong> SQL Server
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <strong class="text-success">Environment:</strong> Development
+                                </div>
+                            </div>
+                            <div class="alert alert-warning">
+                                <strong>Note:</strong> This is a demonstration system. In a production environment,
+                                these settings would be managed through a proper configuration management system.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

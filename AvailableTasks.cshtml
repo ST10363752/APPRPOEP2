@@ -1,0 +1,65 @@
+﻿@model List<object>
+@{
+    ViewData["Title"] = "Available Tasks";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-success">📋 Available Volunteer Tasks</h1>
+                <div>
+                    <a href="@Url.Action("Register", "Volunteer")" class="btn btn-warning btn-lg me-2">
+                        🤝 Register to Volunteer
+                    </a>
+                    <a href="@Url.Action("ViewVolunteers", "Volunteer")" class="btn btn-outline-success btn-lg">
+                        👥 View Volunteers
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                @foreach (var task in Model)
+                {
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-success">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="card-title mb-0">@task.GetType().GetProperty("Title").GetValue(task)</h5>
+                                <span class="badge bg-@(task.GetType().GetProperty("Urgency").GetValue(task).ToString() == "High" ? "danger" : task.GetType().GetProperty("Urgency").GetValue(task).ToString() == "Medium" ? "warning" : "info")">
+                                    @task.GetType().GetProperty("Urgency").GetValue(task) Priority
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">@task.GetType().GetProperty("Description").GetValue(task)</p>
+
+                                <div class="mb-3">
+                                    <h6 class="text-success">📍 Location</h6>
+                                    <p class="mb-2">@task.GetType().GetProperty("Location").GetValue(task)</p>
+
+                                    <h6 class="text-success">⏱️ Duration</h6>
+                                    <p class="mb-2">@task.GetType().GetProperty("Duration").GetValue(task)</p>
+
+                                    <h6 class="text-success">🛠️ Skills Required</h6>
+                                    <p class="mb-0">@task.GetType().GetProperty("SkillsRequired").GetValue(task)</p>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="@Url.Action("Register", "Volunteer")" class="btn btn-outline-success btn-sm">Apply for this Task</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mt-5">
+                <div class="bg-light p-5 rounded">
+                    <h3 class="text-success mb-3">Ready to Make a Difference?</h3>
+                    <p class="text-muted mb-4">Join our team of dedicated volunteers and help communities in need.</p>
+                    <a href="@Url.Action("Register", "Volunteer")" class="btn btn-success btn-lg me-3">Register Now</a>
+                    <a href="@Url.Action("VolunteerImpact", "Volunteer")" class="btn btn-outline-warning btn-lg">See Our Impact</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿@model List<APPR6312PART2.Models.Disaster>
+@{
+    ViewData["Title"] = "Current Disasters";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-success">🌋 Current Disasters</h1>
+                <a href="@Url.Action("Report", "Disaster")" class="btn btn-warning btn-lg">
+                    ➕ Report New Disaster
+                </a>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info text-center">
+                    <h4>No disasters reported yet</h4>
+                    <p>Be the first to report a disaster incident to help coordinate relief efforts.</p>
+                    <a href="@Url.Action("Report", "Disaster")" class="btn btn-success">Report First Disaster</a>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (var disaster in Model)
+                    {
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100 border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h5 class="card-title mb-0">@disaster.DisasterType</h5>
+                                    <small>@disaster.ReportedAt.ToString("MMM dd, yyyy hh:mm tt")</small>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="text-warning">📍 @disaster.Location</h6>
+                                    <p class="card-text">@(disaster.Description.Length > 100 ? disaster.Description.Substring(0, 100) + "..." : disaster.Description)</p>
+
+                                    <div class="mb-2">
+                                        @{
+                                            var severityClass = disaster.Severity == "Critical" ? "danger" :
+                                            disaster.Severity == "High" ? "warning" : "info";
+                                        }
+                                        <span class="badge bg-@severityClass">
+                                            @disaster.Severity Severity
+                                        </span>
+                                        <span class="badge bg-secondary">👥 @disaster.AffectedPeople affected</span>
+                                    </div>
+
+                                    @if (!string.IsNullOrEmpty(disaster.RequiredAidType))
+                                    {
+                                        <p class="mb-1"><strong>Needed:</strong> @disaster.RequiredAidType</p>
+                                    }
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <a href="@Url.Action("Details", "Disaster", new { id = disaster.DisasterId })" class="btn btn-outline-success btn-sm">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

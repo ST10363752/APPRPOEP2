@@ -1,0 +1,130 @@
+﻿@model APPR6312PART2.Models.Disaster
+@{
+    ViewData["Title"] = "Report Disaster";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow border-warning">
+                <div class="card-header bg-warning text-dark text-center py-3">
+                    <h2 class="mb-0">⚠️ Report Disaster Incident</h2>
+                    <p class="mb-0">Help us respond quickly by providing accurate information</p>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Report" method="post">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="DisasterType" class="form-label fw-bold text-success">Disaster Type *</label>
+                                <select asp-for="DisasterType" class="form-select" required>
+                                    <option value="">Select Disaster Type</option>
+                                    <option value="Earthquake">Earthquake</option>
+                                    <option value="War">War</option>
+                                    <option value="Flood">Flood</option>
+                                    <option value="Hurricane">Hurricane</option>
+                                    <option value="Wildfire">Wildfire</option>
+                                    <option value="Tornado">Tornado</option>
+                                    <option value="Tsunami">Tsunami</option>
+                                    <option value="Drought">Drought</option>
+                                    <option value="Landslide">Landslide</option>
+                                    <option value="Volcanic Eruption">Volcanic Eruption</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span asp-validation-for="DisasterType" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Location" class="form-label fw-bold text-success">Location *</label>
+                                <input asp-for="Location" class="form-control" placeholder="Enter city, region, or coordinates" required>
+                                <span asp-validation-for="Location" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label fw-bold text-success">Description *</label>
+                            <textarea asp-for="Description" class="form-control" rows="4"
+                                      placeholder="Please describe the disaster, including current situation, damage assessment, and immediate needs..."
+                                      required></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="StartDate" class="form-label fw-bold text-success">Start Date *</label>
+                                <input asp-for="StartDate" type="date" class="form-control" required>
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="EndDate" class="form-label fw-bold text-success">End Date (if known)</label>
+                                <input asp-for="EndDate" type="date" class="form-control">
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Severity" class="form-label fw-bold text-success">Severity Level *</label>
+                                <select asp-for="Severity" class="form-select" required>
+                                    <option value="">Select Severity</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                    <option value="Critical">Critical</option>
+                                </select>
+                                <span asp-validation-for="Severity" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="RequiredAidType" class="form-label fw-bold text-success">Required Aid Type</label>
+                                <select asp-for="RequiredAidType" class="form-select">
+                                    <option value="">Select Required Aid</option>
+                                    <option value="Medical Supplies">Medical Supplies</option>
+                                    <option value="Food and Water">Food and Water</option>
+                                    <option value="Shelter">Shelter</option>
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Rescue Equipment">Rescue Equipment</option>
+                                    <option value="All of the above">All of the above</option>
+                                </select>
+                                <span asp-validation-for="RequiredAidType" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="AffectedPeople" class="form-label fw-bold text-success">Estimated People Affected *</label>
+                                <input asp-for="AffectedPeople" type="number" class="form-control" min="1" required>
+                                <span asp-validation-for="AffectedPeople" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ContactPerson" class="form-label fw-bold text-success">Contact Person</label>
+                                <input asp-for="ContactPerson" class="form-control" placeholder="Name of person we can contact">
+                                <span asp-validation-for="ContactPerson" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ContactPhone" class="form-label fw-bold text-success">Contact Phone</label>
+                                <input asp-for="ContactPhone" class="form-control" placeholder="Phone number for follow-up">
+                                <span asp-validation-for="ContactPhone" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <h6 class="alert-heading">ℹ️ Important Information</h6>
+                            <p class="mb-0">
+                                If this is an emergency requiring immediate assistance, please contact local emergency services first.
+                                This reporting system is for coordination purposes and response may take some time.
+                            </p>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary me-md-2">Cancel</a>
+                            <button type="submit" class="btn btn-warning btn-lg">Submit Report</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

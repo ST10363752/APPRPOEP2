@@ -1,0 +1,123 @@
+﻿@model APPR6312PART2.Models.Volunteer
+@{
+    ViewData["Title"] = "Volunteer Details";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow border-success">
+                <div class="card-header bg-success text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0">Volunteer Details</h2>
+                        <span class="badge bg-warning text-dark fs-6">@Model.Status</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Personal Information -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-success mb-3">👤 Personal Information</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Name:</strong> @Model.FirstName @Model.LastName</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Email:</strong> @Model.Email</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Phone:</strong> @Model.PhoneNumber</p>
+                        </div>
+                    </div>
+
+                    <!-- Address Information -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-success mb-3">📍 Address Information</h4>
+                        </div>
+                        <div class="col-12">
+                            <p><strong>Address:</strong> @Model.Address</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>City:</strong> @Model.City</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>State:</strong> @Model.State</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Postal Code:</strong> @Model.PostalCode</p>
+                        </div>
+                        <div class="col-12">
+                            <p><strong>Country:</strong> @Model.Country</p>
+                        </div>
+                    </div>
+
+                    <!-- Volunteer Information -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-success mb-3">🎯 Volunteer Information</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Availability:</strong> <span class="badge bg-info">@Model.Availability</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Skills:</strong> <span class="badge bg-warning text-dark">@Model.Skills</span></p>
+                        </div>
+                        <div class="col-12">
+                            <p><strong>Assigned Tasks:</strong> @Model.AssignedTasks</p>
+                        </div>
+                    </div>
+
+                    <!-- Experience -->
+                    @if (!string.IsNullOrEmpty(Model.PreviousExperience))
+                    {
+                        <div class="mb-4">
+                            <h5 class="text-success">📝 Previous Experience</h5>
+                            <p class="bg-light p-3 rounded">@Model.PreviousExperience</p>
+                        </div>
+                    }
+
+                    <!-- Emergency Contact -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-success mb-3">🚨 Emergency Contact</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Name:</strong> @Model.EmergencyContactName</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Phone:</strong> @Model.EmergencyContactPhone</p>
+                        </div>
+                    </div>
+
+                    <!-- Health Information -->
+                    @if (!string.IsNullOrEmpty(Model.MedicalConditions) || !string.IsNullOrEmpty(Model.SpecialRequirements))
+                    {
+                        <div class="alert alert-info">
+                            <h5 class="text-success">🏥 Health & Safety Information</h5>
+                            @if (!string.IsNullOrEmpty(Model.MedicalConditions))
+                            {
+                                <p class="mb-1"><strong>Medical Conditions:</strong> @Model.MedicalConditions</p>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.SpecialRequirements))
+                            {
+                                <p class="mb-0"><strong>Special Requirements:</strong> @Model.SpecialRequirements</p>
+                            }
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Registration Date:</strong> @Model.RegistrationDate.ToString("MMM dd, yyyy hh:mm tt")</p>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="@Url.Action("ViewVolunteers", "Volunteer")" class="btn btn-outline-secondary me-md-2">Back to List</a>
+                        <a href="@Url.Action("Register", "Volunteer")" class="btn btn-warning">Register Another Volunteer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

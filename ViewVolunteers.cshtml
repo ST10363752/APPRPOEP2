@@ -1,0 +1,112 @@
+﻿@model List<APPR6312PART2.Models.Volunteer>
+@{
+    ViewData["Title"] = "All Volunteers";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-success">🤝 Our Volunteers</h1>
+                <div>
+                    <a href="@Url.Action("Register", "Volunteer")" class="btn btn-warning btn-lg me-2">
+                        ➕ Register Volunteer
+                    </a>
+                    <a href="@Url.Action("AvailableTasks", "Volunteer")" class="btn btn-outline-success btn-lg me-2">
+                        📋 Available Tasks
+                    </a>
+                    <a href="@Url.Action("VolunteerImpact", "Volunteer")" class="btn btn-outline-warning btn-lg">
+                        📊 Volunteer Impact
+                    </a>
+                </div>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info text-center">
+                    <h4>No volunteers registered yet</h4>
+                    <p>Be the first to register and join our volunteer team.</p>
+                    <a href="@Url.Action("Register", "Volunteer")" class="btn btn-success">Become First Volunteer</a>
+                </div>
+            }
+            else
+            {
+                <div class="card shadow border-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">Volunteer Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <h4 class="text-success">@Model.Count</h4>
+                                <p class="text-muted">Total Volunteers</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="text-warning">@Model.Count(v => v.Status == "Active")</h4>
+                                <p class="text-muted">Active Volunteers</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="text-success">@Model.Count(v => v.Availability == "Full-time")</h4>
+                                <p class="text-muted">Full-time Available</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="text-warning">@Model.Count(v => v.Skills.Contains("Medical"))</h4>
+                                <p class="text-muted">Medical Skills</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive mt-4">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-success">
+                            <tr>
+                                <th>Volunteer</th>
+                                <th>Contact</th>
+                                <th>Location</th>
+                                <th>Availability</th>
+                                <th>Skills</th>
+                                <th>Status</th>
+                                <th>Registration Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var volunteer in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@volunteer.FirstName @volunteer.LastName</strong>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">@volunteer.Email</small>
+                                        <br>
+                                        <small>@volunteer.PhoneNumber</small>
+                                    </td>
+                                    <td>
+                                        <small>@volunteer.City, @volunteer.State</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info">@volunteer.Availability</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-warning text-dark">@volunteer.Skills</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-@(volunteer.Status == "Active" ? "success" : volunteer.Status == "Pending" ? "warning" : "secondary")">
+                                            @volunteer.Status
+                                        </span>
+                                    </td>
+                                    <td>@volunteer.RegistrationDate.ToString("MMM dd, yyyy")</td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Volunteer", new { id = volunteer.VolunteerId })" class="btn btn-outline-success btn-sm">View</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

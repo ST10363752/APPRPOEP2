@@ -1,0 +1,58 @@
+﻿@model APPR6312PART2.Models.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow border-warning">
+                <div class="card-header bg-warning text-dark text-center py-3">
+                    <h2 class="mb-0">🔑 Welcome Back</h2>
+                    <p class="mb-0">Sign in to your account</p>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Login" method="post">
+                        @if (!ViewData.ModelState.IsValid && ViewData.ModelState[string.Empty]?.Errors.Count > 0)
+                        {
+                            <div class="alert alert-danger">
+                                @ViewData.ModelState[string.Empty].Errors.First().ErrorMessage
+                            </div>
+                        }
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-bold text-success">Email Address *</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" required>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label fw-bold text-success">Password *</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" required>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input asp-for="RememberMe" class="form-check-input">
+                            <label asp-for="RememberMe" class="form-check-label text-success">Remember me</label>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-warning btn-lg">Sign In</button>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <p class="mb-2">
+                                <a href="#" class="text-warning text-decoration-none">Forgot your password?</a>
+                            </p>
+                            <p class="text-muted">
+                                Don't have an account?
+                                <a href="@Url.Action("Register", "Auth")" class="text-success text-decoration-none fw-bold">Register here</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

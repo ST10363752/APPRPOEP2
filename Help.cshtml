@@ -1,0 +1,472 @@
+﻿@{
+    ViewData["Title"] = "Help & FAQ";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center mb-5">
+                <h1 class="text-success">❓ Help & Frequently Asked Questions</h1>
+                <p class="lead text-muted">Find answers to common questions and learn how to use our platform effectively</p>
+            </div>
+
+            <!-- Quick Help Cards -->
+            <div class="row mb-5">
+                <div class="col-md-4 mb-3">
+                    <div class="card border-success text-center h-100">
+                        <div class="card-body">
+                            <div class="text-success display-6">🌋</div>
+                            <h5 class="text-success">Reporting Disasters</h5>
+                            <p class="text-muted">Learn how to report disaster incidents effectively</p>
+                            <a href="#reporting" class="btn btn-outline-success btn-sm">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card border-warning text-center h-100">
+                        <div class="card-body">
+                            <div class="text-warning display-6">❤️</div>
+                            <h5 class="text-warning">Making Donations</h5>
+                            <p class="text-muted">Guide to donating resources and money</p>
+                            <a href="#donations" class="btn btn-outline-warning btn-sm">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card border-success text-center h-100">
+                        <div class="card-body">
+                            <div class="text-success display-6">🤝</div>
+                            <h5 class="text-success">Volunteering</h5>
+                            <p class="text-muted">How to become a volunteer and help</p>
+                            <a href="#volunteering" class="btn btn-outline-success btn-sm">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Help -->
+            <div class="card border-warning mb-5">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">🔍 Search Help Articles</h5>
+                </div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Type your question here..." id="helpSearch">
+                        <button class="btn btn-success" type="button" onclick="searchHelp()">Search</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Sections -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Getting Started -->
+                    <div class="card border-success mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0">🚀 Getting Started</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="accordion" id="gettingStartedAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                            How do I create an account?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#gettingStartedAccordion">
+                                        <div class="accordion-body">
+                                            <p>To create an account:</p>
+                                            <ol>
+                                                <li>Click on the "Register" button in the top navigation</li>
+                                                <li>Fill in your personal information (name, email, phone)</li>
+                                                <li>Choose your account type (Donor, Volunteer, or Both)</li>
+                                                <li>Create a secure password</li>
+                                                <li>Agree to the terms and conditions</li>
+                                                <li>Click "Create Account"</li>
+                                            </ol>
+                                            <p>You'll receive a confirmation and can immediately start using the platform.</p>
+                                            <a href="@Url.Action("Register", "Auth")" class="btn btn-success btn-sm">Create Account Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                            What are the different user types?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#gettingStartedAccordion">
+                                        <div class="accordion-body">
+                                            <p>We offer four user types:</p>
+                                            <ul>
+                                                <li><strong>Donor:</strong> For individuals who want to donate resources or money</li>
+                                                <li><strong>Volunteer:</strong> For those who want to offer their time and skills</li>
+                                                <li><strong>Both:</strong> For people who want to both donate and volunteer</li>
+                                                <li><strong>Supporter:</strong> For those who want to follow our mission and stay informed</li>
+                                            </ul>
+                                            <p>You can change your user type anytime in your profile settings.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                            I forgot my password. How can I reset it?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#gettingStartedAccordion">
+                                        <div class="accordion-body">
+                                            <p>To reset your password:</p>
+                                            <ol>
+                                                <li>Go to the Login page</li>
+                                                <li>Click on "Forgot your password?" link</li>
+                                                <li>Enter your email address</li>
+                                                <li>Check your email for a password reset link</li>
+                                                <li>Click the link and create a new password</li>
+                                            </ol>
+                                            <p>If you don't receive the email, check your spam folder or contact our support team.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Disaster Reporting -->
+                    <div class="card border-warning mb-4" id="reporting">
+                        <div class="card-header bg-warning text-dark">
+                            <h4 class="mb-0">🌋 Disaster Reporting</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="accordion" id="reportingAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReport1">
+                                            What information should I include when reporting a disaster?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseReport1" class="accordion-collapse collapse show" data-bs-parent="#reportingAccordion">
+                                        <div class="accordion-body">
+                                            <p>When reporting a disaster, please provide as much detail as possible:</p>
+                                            <ul>
+                                                <li><strong>Disaster Type:</strong> Flood, earthquake, wildfire, etc.</li>
+                                                <li><strong>Exact Location:</strong> City, region, or coordinates</li>
+                                                <li><strong>Description:</strong> Current situation, damage assessment, immediate needs</li>
+                                                <li><strong>Start Date:</strong> When the disaster began</li>
+                                                <li><strong>Severity Level:</strong> Low, Medium, High, or Critical</li>
+                                                <li><strong>Affected People:</strong> Estimated number of people impacted</li>
+                                                <li><strong>Required Aid:</strong> Type of assistance needed</li>
+                                            </ul>
+                                            <a href="@Url.Action("Report", "Disaster")" class="btn btn-warning btn-sm">Report a Disaster Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReport2">
+                                            How quickly do you respond to disaster reports?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseReport2" class="accordion-collapse collapse" data-bs-parent="#reportingAccordion">
+                                        <div class="accordion-body">
+                                            <p>Our response time varies based on the severity and location:</p>
+                                            <ul>
+                                                <li><strong>Critical incidents:</strong> Within 2-4 hours</li>
+                                                <li><strong>High severity:</strong> Within 6-12 hours</li>
+                                                <li><strong>Medium severity:</strong> Within 24 hours</li>
+                                                <li><strong>Low severity:</strong> Within 48 hours</li>
+                                            </ul>
+                                            <p><em>Note: Always contact local emergency services first for immediate life-threatening situations.</em></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReport3">
+                                            Can I update or cancel a disaster report?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseReport3" class="accordion-collapse collapse" data-bs-parent="#reportingAccordion">
+                                        <div class="accordion-body">
+                                            <p>Yes, you can update disaster reports:</p>
+                                            <ul>
+                                                <li><strong>Updates:</strong> Contact our support team with the disaster ID and updated information</li>
+                                                <li><strong>Cancellations:</strong> If the situation has been resolved or was reported in error</li>
+                                                <li><strong>Status Changes:</strong> We'll update the status as the situation evolves</li>
+                                            </ul>
+                                            <p>To view your submitted reports, visit the "My Reports" section in your dashboard.</p>
+                                            <a href="@Url.Action("ViewDisasters", "Disaster")" class="btn btn-outline-warning btn-sm">View Current Disasters</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donations -->
+                    <div class="card border-success mb-4" id="donations">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0">❤️ Donations</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="accordion" id="donationsAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDonate1">
+                                            What types of donations do you accept?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseDonate1" class="accordion-collapse collapse show" data-bs-parent="#donationsAccordion">
+                                        <div class="accordion-body">
+                                            <p>We accept various types of donations:</p>
+                                            <ul>
+                                                <li><strong>Monetary Donations:</strong> Financial contributions via secure payment methods</li>
+                                                <li><strong>Food Supplies:</strong> Non-perishable food items, water, and nutrition supplies</li>
+                                                <li><strong>Clothing:</strong> New or gently used clothing for all ages</li>
+                                                <li><strong>Medical Supplies:</strong> First aid kits, medications, medical equipment</li>
+                                                <li><strong>Shelter Materials:</strong> Tents, blankets, building materials</li>
+                                                <li><strong>Other Items:</strong> Based on current disaster needs</li>
+                                            </ul>
+                                            <a href="@Url.Action("Donate", "Donation")" class="btn btn-success btn-sm">Make a Donation</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDonate2">
+                                            How can I track my donation's impact?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseDonate2" class="accordion-collapse collapse" data-bs-parent="#donationsAccordion">
+                                        <div class="accordion-body">
+                                            <p>You can track your donation's impact in several ways:</p>
+                                            <ol>
+                                                <li>Visit the "Track Impact" page to see overall statistics</li>
+                                                <li>Check "My Donations" in your profile to see specific donation status</li>
+                                                <li>We send regular email updates for significant donations</li>
+                                                <li>View our monthly impact reports on the website</li>
+                                            </ol>
+                                            <p>For large donations, we provide personalized impact reports upon request.</p>
+                                            <a href="@Url.Action("Impact", "Donation")" class="btn btn-outline-success btn-sm">View Impact</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDonate3">
+                                            Are donations tax-deductible?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseDonate3" class="accordion-collapse collapse" data-bs-parent="#donationsAccordion">
+                                        <div class="accordion-body">
+                                            <p>Yes, Disaster Alleviation Foundation is a registered 501(c)(3) non-profit organization.</p>
+                                            <ul>
+                                                <li>All monetary donations are tax-deductible to the extent allowed by law</li>
+                                                <li>For in-kind donations, we provide receipt of goods received</li>
+                                                <li>Tax receipts are automatically generated for online monetary donations</li>
+                                                <li>For large donations, we provide detailed documentation for tax purposes</li>
+                                            </ul>
+                                            <p>Contact our donations team for specific tax-related questions.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Volunteering -->
+                    <div class="card border-warning mb-4" id="volunteering">
+                        <div class="card-header bg-warning text-dark">
+                            <h4 class="mb-0">🤝 Volunteering</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="accordion" id="volunteeringAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVolunteer1">
+                                            What skills are needed for volunteering?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseVolunteer1" class="accordion-collapse collapse show" data-bs-parent="#volunteeringAccordion">
+                                        <div class="accordion-body">
+                                            <p>We need volunteers with various skills:</p>
+                                            <ul>
+                                                <li><strong>Medical:</strong> Doctors, nurses, first aid trained individuals</li>
+                                                <li><strong>Logistics:</strong> Distribution, transportation, warehouse management</li>
+                                                <li><strong>Construction:</strong> Building, repair, shelter setup</li>
+                                                <li><strong>Communication:</strong> Translation, counseling, coordination</li>
+                                                <li><strong>Technical:</strong> IT support, equipment maintenance</li>
+                                                <li><strong>General:</strong> Any willing helper with compassion and dedication</li>
+                                            </ul>
+                                            <p>No specific skills are required - we provide training for most roles.</p>
+                                            <a href="@Url.Action("Register", "Volunteer")" class="btn btn-warning btn-sm">Become a Volunteer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVolunteer2">
+                                            How are volunteers assigned to tasks?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseVolunteer2" class="accordion-collapse collapse" data-bs-parent="#volunteeringAccordion">
+                                        <div class="accordion-body">
+                                            <p>Volunteer assignment follows this process:</p>
+                                            <ol>
+                                                <li>Complete volunteer registration with your skills and availability</li>
+                                                <li>Browse available tasks in the "Available Tasks" section</li>
+                                                <li>Express interest in tasks that match your profile</li>
+                                                <li>
+                                                    Our coordinators review and assign based on:
+                                                    <ul>
+                                                        <li>Skill match</li>
+                                                        <li>Availability</li>
+                                                        <li>Location preferences</li>
+                                                        <li>Urgency of need</li>
+                                                    </ul>
+                                                </li>
+                                                <li>You receive notification of assignment with details</li>
+                                            </ol>
+                                            <a href="@Url.Action("AvailableTasks", "Volunteer")" class="btn btn-outline-warning btn-sm">View Available Tasks</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVolunteer3">
+                                            What training is provided for volunteers?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseVolunteer3" class="accordion-collapse collapse" data-bs-parent="#volunteeringAccordion">
+                                        <div class="accordion-body">
+                                            <p>We provide comprehensive training for all volunteers:</p>
+                                            <ul>
+                                                <li><strong>Orientation:</strong> Introduction to our mission and safety protocols</li>
+                                                <li><strong>Role-Specific Training:</strong> Training for specific volunteer roles</li>
+                                                <li><strong>Safety Training:</strong> Emergency procedures and personal safety</li>
+                                                <li><strong>Cultural Sensitivity:</strong> Working with diverse communities</li>
+                                                <li><strong>Ongoing Support:</strong> Continuous training and skill development</li>
+                                            </ul>
+                                            <p>Most training is provided online, with hands-on training for field roles.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar - Quick Help -->
+                <div class="col-lg-4">
+                    <div class="card border-success mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">📞 Contact Support</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Emergency Hotline:</strong><br>1-800-DISASTER</p>
+                            <p><strong>General Support:</strong><br>support@disasteralleviation.org</p>
+                            <p><strong>Donation Inquiries:</strong><br>donations@disasteralleviation.org</p>
+                            <p><strong>Volunteer Coordination:</strong><br>volunteers@disasteralleviation.org</p>
+
+                            <div class="mt-3">
+                                <a href="@Url.Action("Contact", "Home")" class="btn btn-success w-100">Contact Form</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-warning mb-4">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="mb-0">🚨 Emergency Guide</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>In case of immediate danger:</strong></p>
+                            <ol>
+                                <li>Call local emergency services first</li>
+                                <li>Ensure your own safety</li>
+                                <li>Follow official evacuation orders</li>
+                                <li>Use this platform for coordination after immediate danger passes</li>
+                            </ol>
+                            <div class="alert alert-danger">
+                                <strong>⚠️ Important:</strong> This platform is for coordination, not emergency response. Always call emergency services first in life-threatening situations.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-info">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">📚 Quick Links</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <a href="@Url.Action("Report", "Disaster")" class="btn btn-outline-warning btn-sm text-start">🌋 Report Disaster</a>
+                                <a href="@Url.Action("Donate", "Donation")" class="btn btn-outline-success btn-sm text-start">❤️ Make Donation</a>
+                                <a href="@Url.Action("Register", "Volunteer")" class="btn btn-outline-warning btn-sm text-start">🤝 Volunteer</a>
+                                <a href="@Url.Action("ViewDisasters", "Disaster")" class="btn btn-outline-success btn-sm text-start">📋 Current Disasters</a>
+                                <a href="@Url.Action("Impact", "Donation")" class="btn btn-outline-warning btn-sm text-start">📊 Track Impact</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Still Need Help Section -->
+            <div class="text-center mt-5 p-5 bg-light rounded">
+                <h3 class="text-success mb-3">Still Need Help?</h3>
+                <p class="text-muted mb-4">Can't find the answer you're looking for? Our support team is here to help you.</p>
+                <a href="@Url.Action("Contact", "Home")" class="btn btn-success btn-lg me-3">Contact Support</a>
+                <a href="@Url.Action("Index", "Home")" class="btn btn-outline-warning btn-lg">Return Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function searchHelp() {
+            const searchTerm = document.getElementById('helpSearch').value.toLowerCase();
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            let foundResults = false;
+
+            accordionItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = '';
+                    foundResults = true;
+                    // Auto-expand matching items
+                    const button = item.querySelector('.accordion-button');
+                    const collapse = item.querySelector('.accordion-collapse');
+                    if (button && collapse && !button.classList.contains('collapsed')) {
+                        new bootstrap.Collapse(collapse, { show: true });
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (!foundResults && searchTerm) {
+                alert('No results found for "' + searchTerm + '". Please try different keywords.');
+            }
+        }
+
+        // Enable search on Enter key
+        document.getElementById('helpSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchHelp();
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+}

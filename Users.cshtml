@@ -1,0 +1,159 @@
+﻿@model List<APPR6312PART2.Models.User>
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-success">👥 User Management</h1>
+                <div>
+                    <a href="@Url.Action("Index", "Dashboard")" class="btn btn-outline-secondary me-2">📊 Dashboard</a>
+                    <a href="@Url.Action("Analytics", "Dashboard")" class="btn btn-outline-warning">📈 Analytics</a>
+                </div>
+            </div>
+
+            <!-- User Statistics -->
+            <div class="row mb-4">
+                <div class="col-md-3 mb-3">
+                    <div class="card border-success text-center">
+                        <div class="card-body">
+                            <h3 class="text-success">0</h3>
+                            <p class="text-muted mb-0">Total Users</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card border-warning text-center">
+                        <div class="card-body">
+                            <h3 class="text-warning">0</h3>
+                            <p class="text-muted mb-0">Active Users</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card border-success text-center">
+                        <div class="card-body">
+                            <h3 class="text-success">0</h3>
+                            <p class="text-muted mb-0">New This Month</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card border-warning text-center">
+                        <div class="card-body">
+                            <h3 class="text-warning">4</h3>
+                            <p class="text-muted mb-0">User Types</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info text-center">
+                    <h4>No users registered yet</h4>
+                    <p>Users will appear here once they register through the system.</p>
+                    <a href="@Url.Action("Register", "Auth")" class="btn btn-success">Create First User</a>
+                </div>
+            }
+            else
+            {
+                <div class="card border-success">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">All Users</h5>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-light btn-sm">Export</button>
+                            <button class="btn btn-outline-light btn-sm">Filter</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-success">
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Contact</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Joined</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var user in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <strong>@user.FirstName @user.LastName</strong>
+                                                <br>
+                                                <small class="text-muted">ID: @user.UserId</small>
+                                            </td>
+                                            <td>
+                                                <small>@user.Email</small>
+                                                <br>
+                                                <small>@user.PhoneNumber</small>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-info">@user.UserType</span>
+                                            </td>
+                                            <td>
+                                                @if (user.IsActive)
+                                                {
+                                                    <span class="badge bg-success">Active</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">Inactive</span>
+                                                }
+                                            </td>
+                                            <td>@user.CreatedAt.ToString("MMM dd, yyyy")</td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm">
+                                                    <button class="btn btn-outline-success">Edit</button>
+                                                    <button class="btn btn-outline-warning">View</button>
+                                                    <button class="btn btn-outline-danger">Delete</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- User Type Distribution -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card border-warning">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="card-title mb-0">📊 User Type Distribution</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center py-4">
+                                <div class="text-muted">No user data available</div>
+                                <small class="text-muted">User distribution will appear here when users register</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-success">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="card-title mb-0">📈 Registration Trends</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center py-4">
+                                <div class="text-muted">No registration data available</div>
+                                <small class="text-muted">Registration trends will appear here over time</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
